@@ -1,4 +1,6 @@
 using Restaurant.Infrastructure.Persistence;
+using Restaurant.Infrastructure.Shared;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region dependency injection
 builder.Services.AddPersistenceLayer(builder.Configuration);
+builder.Services.AddSharedLayer(builder.Configuration);
 #endregion
 
 builder.Services.AddControllers();

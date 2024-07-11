@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Restaurant.Infrastructure.Identity\Restaurant.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\Restaurant.Infrastructure.Persistence\Restaurant.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\Restaurant.Infrastructure.Shared\Restaurant.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
 </Project>
