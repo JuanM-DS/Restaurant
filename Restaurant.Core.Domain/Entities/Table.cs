@@ -13,6 +13,6 @@ namespace Restaurant.Core.Domain.Entities
         //Navigators
         public TableStatus Status { get; set; } = null!;
 
-        public ICollection<Order> Ordes { get; set; } = [];
+        public ICollection<Order> Orders { get; set; } = [];
     }
 }

@@ -6,8 +6,8 @@
 
         public DateTime CreateTime { get; set; }
 
-        public string LastModifiedBy { get; set; } = null!;
+        public string? LastModifiedBy { get; set; }
 
-        public DateTime LastModifiedTime { get; set; }
+        public DateTime? LastModifiedTime { get; set; }
     }
 }

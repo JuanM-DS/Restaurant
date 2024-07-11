@@ -1,10 +1,16 @@
-﻿namespace Restaurant.Core.Domain.Entities
+﻿using Restaurant.Core.Domain.Common;
+
+namespace Restaurant.Core.Domain.Entities
 {
-    public class Order
+    public class Order : BaseEntity
     {
         public decimal Subtotal { get; set; }
 
         public string UserId { get; set; } = null!;
+
+        public int TableId { get; set; }
+
+        public int StatusId { get; set; }
 
         //Navigators
         public Table Table { get; set; } = null!;
