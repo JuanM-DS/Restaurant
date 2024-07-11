@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant.Infrastructure.Identity.Context;
 
@@ -11,9 +12,11 @@ using Restaurant.Infrastructure.Identity.Context;
 namespace Restaurant.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(RestaurantIdentityDbContext))]
-    partial class RestaurantIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240711232112_adding the aud prop to identity entities")]
+    partial class addingtheaudproptoidentityentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
