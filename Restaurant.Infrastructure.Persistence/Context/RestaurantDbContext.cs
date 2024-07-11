@@ -38,8 +38,8 @@ namespace Restaurant.Infrastructure.Persistence.Context
                         item.Entity.LastModifiedTime = DateTime.Now;
                         break;
                     case EntityState.Added:
-                        item.Entity.CreateTime = DateTime.Now;
-                        item.Entity.CreateBy = "user"; // change by the user
+                        item.Entity.CreatedTime = DateTime.Now;
+                        item.Entity.CreatedBy = "user"; // change by the user
                         break;
                 }
             }

@@ -20,8 +20,8 @@ namespace Restaurant.Infrastructure.Persistence.Context.EntitiesConfigurations
             builder.Property(x => x.CategoryId);
 
             #region Auditable
-            builder.Property(x => x.CreateBy);
-            builder.Property(x => x.CreateTime)
+            builder.Property(x => x.CreatedBy);
+            builder.Property(x => x.CreatedTime)
                 .HasColumnType("datetime");
             builder.Property(x => x.LastModifiedBy);
             builder.Property(x => x.LastModifiedTime)

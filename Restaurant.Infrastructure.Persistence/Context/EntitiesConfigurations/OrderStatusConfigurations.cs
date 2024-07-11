@@ -16,8 +16,8 @@ namespace Restaurant.Infrastructure.Persistence.Context.EntitiesConfigurations
             builder.Property(x => x.Name);
 
             #region Auditable
-            builder.Property(x => x.CreateBy);
-            builder.Property(x => x.CreateTime)
+            builder.Property(x => x.CreatedBy);
+            builder.Property(x => x.CreatedTime)
                 .HasColumnType("datetime");
             builder.Property(x => x.LastModifiedBy);
             builder.Property(x => x.LastModifiedTime)
@@ -29,11 +29,17 @@ namespace Restaurant.Infrastructure.Persistence.Context.EntitiesConfigurations
             (
                 new OrderStatus()
                 {
+                    Id = 1,
                     Name = "In Progress",
+                    CreatedBy = "System",
+                    CreatedTime = DateTime.UtcNow
                 },
                 new OrderStatus()
                 {
+                    Id = 2,
                     Name = "Completed",
+                    CreatedBy = "System",
+                    CreatedTime = DateTime.UtcNow
                 }
             );
             #endregion

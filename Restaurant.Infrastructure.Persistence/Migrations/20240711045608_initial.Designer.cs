@@ -12,8 +12,8 @@ using Restaurant.Infrastructure.Persistence.Context;
 namespace Restaurant.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    [Migration("20240711034538_Initial")]
-    partial class Initial
+    [Migration("20240711045608_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,11 +66,11 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LastModifiedBy")
@@ -104,11 +104,11 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LastModifiedBy")
@@ -124,6 +124,36 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DishCategories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 860, DateTimeKind.Utc).AddTicks(9996),
+                            Name = "Appetizer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc),
+                            Name = "Main Course"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(1),
+                            Name = "Dessert"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(2),
+                            Name = "Beverage"
+                        });
                 });
 
             modelBuilder.Entity("Restaurant.Core.Domain.Entities.Ingredient", b =>
@@ -134,11 +164,11 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LastModifiedBy")
@@ -164,11 +194,11 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LastModifiedBy")
@@ -207,11 +237,11 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LastModifiedBy")
@@ -227,6 +257,22 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OrderStates", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1883),
+                            Name = "In Progress"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1887),
+                            Name = "Completed"
+                        });
                 });
 
             modelBuilder.Entity("Restaurant.Core.Domain.Entities.Table", b =>
@@ -237,11 +283,11 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
@@ -275,11 +321,11 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreateBy")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("LastModifiedBy")
@@ -295,6 +341,29 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TableStates", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6752),
+                            Name = "Available"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6757),
+                            Name = "In Progress"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "System",
+                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6758),
+                            Name = "Served"
+                        });
                 });
 
             modelBuilder.Entity("DishIngredient", b =>

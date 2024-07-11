@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Restaurant.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,8 +20,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -35,8 +37,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -52,8 +54,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -69,8 +71,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -89,8 +91,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
                     Portions = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -114,8 +116,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     Guests = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
-                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -164,8 +166,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TableId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
-                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedTime = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -208,6 +210,36 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "DishCategories",
+                columns: new[] { "Id", "CreatedBy", "CreatedTime", "LastModifiedBy", "LastModifiedTime", "Name" },
+                values: new object[,]
+                {
+                    { 1, "System", new DateTime(2024, 7, 11, 4, 56, 7, 860, DateTimeKind.Utc).AddTicks(9996), null, null, "Appetizer" },
+                    { 2, "System", new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc), null, null, "Main Course" },
+                    { 3, "System", new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(1), null, null, "Dessert" },
+                    { 4, "System", new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(2), null, null, "Beverage" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrderStates",
+                columns: new[] { "Id", "CreatedBy", "CreatedTime", "LastModifiedBy", "LastModifiedTime", "Name" },
+                values: new object[,]
+                {
+                    { 1, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1883), null, null, "In Progress" },
+                    { 2, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1887), null, null, "Completed" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TableStates",
+                columns: new[] { "Id", "CreatedBy", "CreatedTime", "LastModifiedBy", "LastModifiedTime", "Name" },
+                values: new object[,]
+                {
+                    { 1, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6752), null, null, "Available" },
+                    { 2, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6757), null, null, "In Progress" },
+                    { 3, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6758), null, null, "Served" }
                 });
 
             migrationBuilder.CreateIndex(

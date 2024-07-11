@@ -2,9 +2,9 @@
 {
     public abstract class AuditableBaseEntity
     {
-        public string CreateBy { get; set; } = null!;
+        public string CreatedBy { get; set; } = null!;
 
-        public DateTime CreateTime { get; set; }
+        public DateTime CreatedTime { get; set; }
 
         public string? LastModifiedBy { get; set; }
 
