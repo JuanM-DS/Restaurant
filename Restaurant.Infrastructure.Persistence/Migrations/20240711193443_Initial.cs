@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Restaurant.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -217,10 +217,10 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "LastModifiedBy", "LastModifiedTime", "Name" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2024, 7, 11, 4, 56, 7, 860, DateTimeKind.Utc).AddTicks(9996), null, null, "Appetizer" },
-                    { 2, "System", new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc), null, null, "Main Course" },
-                    { 3, "System", new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(1), null, null, "Dessert" },
-                    { 4, "System", new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(2), null, null, "Beverage" }
+                    { 1, "System", new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4338), null, null, "Appetizer" },
+                    { 2, "System", new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4341), null, null, "Main Course" },
+                    { 3, "System", new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4342), null, null, "Dessert" },
+                    { 4, "System", new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4343), null, null, "Beverage" }
                 });
 
             migrationBuilder.InsertData(
@@ -228,8 +228,8 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "LastModifiedBy", "LastModifiedTime", "Name" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1883), null, null, "In Progress" },
-                    { 2, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1887), null, null, "Completed" }
+                    { 1, "System", new DateTime(2024, 7, 11, 19, 34, 42, 593, DateTimeKind.Utc).AddTicks(6422), null, null, "In Progress" },
+                    { 2, "System", new DateTime(2024, 7, 11, 19, 34, 42, 593, DateTimeKind.Utc).AddTicks(6425), null, null, "Completed" }
                 });
 
             migrationBuilder.InsertData(
@@ -237,9 +237,9 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedTime", "LastModifiedBy", "LastModifiedTime", "Name" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6752), null, null, "Available" },
-                    { 2, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6757), null, null, "In Progress" },
-                    { 3, "System", new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6758), null, null, "Served" }
+                    { 1, "System", new DateTime(2024, 7, 11, 19, 34, 42, 594, DateTimeKind.Utc).AddTicks(5826), null, null, "Available" },
+                    { 2, "System", new DateTime(2024, 7, 11, 19, 34, 42, 594, DateTimeKind.Utc).AddTicks(5834), null, null, "In Progress" },
+                    { 3, "System", new DateTime(2024, 7, 11, 19, 34, 42, 594, DateTimeKind.Utc).AddTicks(5835), null, null, "Served" }
                 });
 
             migrationBuilder.CreateIndex(

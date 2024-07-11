@@ -127,28 +127,28 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 860, DateTimeKind.Utc).AddTicks(9996),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4338),
                             Name = "Appetizer"
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4341),
                             Name = "Main Course"
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(1),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4342),
                             Name = "Dessert"
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 861, DateTimeKind.Utc).AddTicks(2),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 592, DateTimeKind.Utc).AddTicks(4343),
                             Name = "Beverage"
                         });
                 });
@@ -260,14 +260,14 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1883),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 593, DateTimeKind.Utc).AddTicks(6422),
                             Name = "In Progress"
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(1887),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 593, DateTimeKind.Utc).AddTicks(6425),
                             Name = "Completed"
                         });
                 });
@@ -344,21 +344,21 @@ namespace Restaurant.Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6752),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 594, DateTimeKind.Utc).AddTicks(5826),
                             Name = "Available"
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6757),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 594, DateTimeKind.Utc).AddTicks(5834),
                             Name = "In Progress"
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            CreatedTime = new DateTime(2024, 7, 11, 4, 56, 7, 862, DateTimeKind.Utc).AddTicks(6758),
+                            CreatedTime = new DateTime(2024, 7, 11, 19, 34, 42, 594, DateTimeKind.Utc).AddTicks(5835),
                             Name = "Served"
                         });
                 });

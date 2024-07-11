@@ -9,9 +9,14 @@ namespace Restaurant.Infrastructure.Persistence
     {
         public static void AddPersistenceLayer(this IServiceCollection service, IConfiguration configuration)
         {
+            #region context
+            var sqlConnection = configuration.GetConnectionString("sqlConnection")
+                                        ?? throw new InvalidOperationException("The connection string is missing from the configuration.");
+
             service.AddDbContext<RestaurantDbContext>(provider =>
                 provider.UseSqlServer(configuration.GetConnectionString("sqlConnection"), m => m.MigrationsAssembly(typeof(RestaurantDbContext).Assembly.FullName))
             );
+            #endregion
         }
     }
 }
