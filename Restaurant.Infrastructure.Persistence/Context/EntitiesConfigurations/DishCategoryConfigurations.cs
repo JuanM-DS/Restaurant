@@ -23,6 +23,28 @@ namespace Restaurant.Infrastructure.Persistence.Context.EntitiesConfigurations
             builder.Property(x => x.LastModifiedTime)
                 .HasColumnType("datetime");
             #endregion
+
+            #region seeds
+            builder.HasData
+            (
+                new DishCategory()
+                {
+                    Name = "Appetizer",
+                },
+                new DishCategory()
+                {
+                    Name = "Main Course",
+                },
+                new DishCategory()
+                {
+                    Name = "Dessert",
+                },
+                new DishCategory()
+                {
+                    Name = "Beverage",
+                }
+            );
+            #endregion
         }
     }
 }
