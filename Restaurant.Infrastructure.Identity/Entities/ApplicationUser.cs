@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Restaurant.Core.Application.Interfaces.Common;
+using Restaurant.Core.Application.Interfaces.Shared.CommonEntities;
 
 namespace Restaurant.Infrastructure.Identity.Entities
 {
