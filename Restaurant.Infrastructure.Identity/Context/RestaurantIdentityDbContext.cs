@@ -35,6 +35,15 @@ namespace Restaurant.Infrastructure.Identity.Context
                 entity.Property(e => e.FirstName);
                 entity.Property(e => e.LastName);
 
+                #region Auditable
+                entity.Property(x => x.CreatedBy);
+                entity.Property(x => x.CreatedTime)
+                    .HasColumnType("datetime");
+                entity.Property(x => x.LastModifiedBy);
+                entity.Property(x => x.LastModifiedTime)
+                    .HasColumnType("datetime");
+                #endregion
+
                 entity.HasMany(e => e.Roles)
                       .WithMany(f => f.Users)
                       .UsingEntity<IdentityUserRole<string>>();
@@ -43,11 +52,22 @@ namespace Restaurant.Infrastructure.Identity.Context
             builder.Entity<ApplicationRole>(entity =>
             {
                 entity.ToTable(name: "Roles");
+
+                #region Auditable
+                entity.Property(x => x.CreatedBy);
+                entity.Property(x => x.CreatedTime)
+                    .HasColumnType("datetime");
+                entity.Property(x => x.LastModifiedBy);
+                entity.Property(x => x.LastModifiedTime)
+                    .HasColumnType("datetime");
+                #endregion
             });
+            
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable(name: "UserRoles");
             });
+            
             builder.Entity<IdentityUserLogin<string>>(entity =>
             {
                 entity.ToTable(name: "UserLogins");

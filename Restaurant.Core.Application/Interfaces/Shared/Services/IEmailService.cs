@@ -1,6 +1,6 @@
 ﻿using Restaurant.Core.Application.DTOs.Email;
 
-namespace Restaurant.Core.Application.Interfaces.Infrastructure.Services
+namespace Restaurant.Core.Application.Interfaces.Shared.Services
 {
     public interface IEmailService
     {

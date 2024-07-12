@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Restaurant.Core.Application.Interfaces.Infrastructure.Services;
+using Restaurant.Core.Application.Interfaces.Shared.Services;
 using Restaurant.Core.Domain.Settings;
 using Restaurant.Infrastructure.Shared.Services;
 

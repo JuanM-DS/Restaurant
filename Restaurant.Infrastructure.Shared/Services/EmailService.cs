@@ -3,7 +3,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Restaurant.Core.Application.DTOs.Email;
-using Restaurant.Core.Application.Interfaces.Infrastructure.Services;
+using Restaurant.Core.Application.Interfaces.Shared.Services;
 using Restaurant.Core.Domain.Settings;
 
 namespace Restaurant.Infrastructure.Shared.Services
