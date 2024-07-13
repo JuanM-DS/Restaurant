@@ -15,8 +15,8 @@ namespace Restaurant.Core.Application.Interfaces.Core.Repositories
 
         public IEnumerable<TEntity> GetAll();
 
-        public IEnumerable<TEntity> GetAllWithInclude(params Expression<Func<TEntity, object>>[] properties);
+        public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] properties);
 
-        public Task<TEntity?> GetByIdWithInclude(int id, params Expression<Func<TEntity, object>>[] properties);
+        public Task<TEntity?> GetWithInclude(int id, params Expression<Func<TEntity, object>>[] properties);
     }
 }

@@ -1,7 +1,9 @@
-﻿using Restaurant.Core.Application.Interfaces.Core.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Restaurant.Core.Application.Interfaces.Core.Repositories;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
 using Restaurant.Infrastructure.Persistence.Context;
+using System.Linq.Expressions;
 
 namespace Restaurant.Infrastructure.Persistence.Repositories
 {
@@ -20,6 +22,24 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
 
             if (filters.StatusId is not null)
                 query = query.Where(x => x.StatusId == filters.StatusId);
+
+            return query.AsEnumerable();
+        }
+
+        public IEnumerable<Table> GetWithInclude(TableQueryFilters filters, params Expression<Func<Table, object>>[] properties)
+        {
+            IQueryable<Table> query = _entity;
+
+            if (filters.Guests is not null)
+                query = query.Where(x => x.Guests == filters.Guests);
+
+            if (filters.StatusId is not null)
+                query = query.Where(x => x.StatusId == filters.StatusId);
+
+            foreach (var item in properties)
+            {
+                query = query.Include(item);
+            }
 
             return query.AsEnumerable();
         }

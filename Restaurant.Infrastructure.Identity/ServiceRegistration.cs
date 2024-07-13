@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Infrastructure.Identity.Context;
 using Restaurant.Infrastructure.Identity.Entities;
+using Restaurant.Infrastructure.Identity.Seeds;
 
 namespace Restaurant.Infrastructure.Identity
 {
@@ -25,6 +27,19 @@ namespace Restaurant.Infrastructure.Identity
                     .AddEntityFrameworkStores<RestaurantIdentityDbContext>()
                     .AddDefaultTokenProviders();
             #endregion
+        }
+
+        public static async Task RunSeedsAsync(this WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var service  = scope.ServiceProvider;
+
+            var userManager = service.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleManager = service.GetRequiredService<RoleManager<ApplicationRole>>();
+
+            await DefaultAdmin.CreateSeed(userManager);
+            await DefaultSuperAdmin.CreateSeed(userManager);
+            await DefaultRoles.CreateSeed(roleManager);
         }
     }
 }

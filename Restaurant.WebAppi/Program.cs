@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 #region dependency injection
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddPersistenceLayer(builder.Configuration);
 builder.Services.AddServiceIdentityLayer(builder.Configuration);
 builder.Services.AddSharedLayer(builder.Configuration);
@@ -19,7 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+await app.RunSeedsAsync();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

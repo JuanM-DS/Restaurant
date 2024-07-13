@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Core.Application.Interfaces.Shared.CommonEntities
+﻿namespace Restaurant.Infrastructure.Identity.Entities
 {
     public interface IAuditableBaseEntity
     {
