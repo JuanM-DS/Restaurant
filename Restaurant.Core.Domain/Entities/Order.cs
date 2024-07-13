@@ -6,7 +6,7 @@ namespace Restaurant.Core.Domain.Entities
     {
         public decimal Subtotal { get; set; }
 
-        public string UserId { get; set; } = null!;
+        public string? UserId { get; set; }
 
         public int TableId { get; set; }
 

@@ -46,13 +46,13 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return _entity.AsEnumerable();
         }
 
-        public IEnumerable<TEntity> GetAllWithInclude(params Expression<Func<TEntity, object>>[] properties)
+        public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] properties)
         {
             IQueryable<TEntity> query = _entity;
 
             foreach (var property in properties)
             {
-                query.Include(property);
+                query = query.Include(property);
             }
             return query.AsEnumerable();
         }
@@ -62,13 +62,13 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return await _entity.FindAsync(id);
         }
 
-        public async Task<TEntity?> GetByIdWithInclude(int id, params Expression<Func<TEntity, object>>[] properties)
+        public async Task<TEntity?> GetWithInclude(int id, params Expression<Func<TEntity, object>>[] properties)
         {
             IQueryable<TEntity> query = _entity;
 
             foreach (var property in properties)
             {
-                query.Include(property);
+                query = query.Include(property);
             }
 
             var entity = await query.FirstOrDefaultAsync(x => x.Id == id);

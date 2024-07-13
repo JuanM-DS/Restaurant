@@ -1,4 +1,4 @@
-﻿using Restaurant.Core.Application.DTOs.Email;
+﻿using Restaurant.Core.Application.DTOs.Shared.Email;
 
 namespace Restaurant.Core.Application.Interfaces.Shared.Services
 {

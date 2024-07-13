@@ -2,7 +2,7 @@
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Restaurant.Core.Application.DTOs.Email;
+using Restaurant.Core.Application.DTOs.Shared.Email;
 using Restaurant.Core.Application.Interfaces.Shared.Services;
 using Restaurant.Core.Domain.Settings;
 
@@ -28,7 +28,7 @@ namespace Restaurant.Infrastructure.Shared.Services
                 await client.ConnectAsync(_emailSettings.StmpHost, _emailSettings.StmpPort, SecureSocketOptions.StartTls);
                 await client.AuthenticateAsync(_emailSettings.StmpUser, _emailSettings.StmpPassword);
                 await client.SendAsync(email);
-                await client.DisconnectAsync(false);
+                await client.DisconnectAsync(true);
             }
             catch (Exception)
             {
