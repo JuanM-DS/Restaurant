@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Restaurant.Core.Application.DTOs.Identity.EntityDTOs;
+using Restaurant.Core.Application.DTOs.Identity.Entity;
 using Restaurant.Infrastructure.Identity.Entities;
 
 namespace Restaurant.Infrastructure.Identity.Mappings
@@ -9,12 +9,12 @@ namespace Restaurant.Infrastructure.Identity.Mappings
         public GeneralIdentityProfiles()
         {
             #region user
-            CreateMap<ApplicationUser, ApplicationUserDTO>()
+            CreateMap<ApplicationUser, ApplicationUserDto>()
                 .ReverseMap();
             #endregion
 
             #region role
-            CreateMap<ApplicationRole, ApplicationRoleDTO>()
+            CreateMap<ApplicationRole, ApplicationRoleDto>()
                 .ReverseMap();
             #endregion
 

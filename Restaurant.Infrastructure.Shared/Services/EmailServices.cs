@@ -8,18 +8,20 @@ using Restaurant.Core.Domain.Settings;
 
 namespace Restaurant.Infrastructure.Shared.Services
 {
-    public class EmailService(IOptions<EmailSettings> emailSettigns) : IEmailService
+    public class EmailServices(IOptions<EmailSettings> emailSettigns) : IEmailService
     {
         private readonly EmailSettings _emailSettings = emailSettigns.Value;
 
         public async Task SendAsycn(EmailRequest request)
         {
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_emailSettings.EmailFrom);
-            email.To.Add(MailboxAddress.Parse(request.To));
-            email.Subject = request.Subject;
             var builder = new BodyBuilder() { HtmlBody = request.Body };
-            email.Body = builder.ToMessageBody();
+            var email = new MimeMessage
+            {
+                Sender = MailboxAddress.Parse(_emailSettings.EmailFrom),
+                Subject = request.Subject,
+                Body = builder.ToMessageBody()
+            };
+            email.To.Add(MailboxAddress.Parse(request.To));
 
             try
             {
