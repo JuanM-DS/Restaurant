@@ -1,4 +1,4 @@
-﻿using Restaurant.Core.Application.DTOs.Identity.EntityDTOs;
+﻿using Restaurant.Core.Application.DTOs.Identity.Entity;
 using Restaurant.Core.Application.QueryFilters;
 
 namespace Restaurant.Core.Application.Interfaces.Persistence.Repositories

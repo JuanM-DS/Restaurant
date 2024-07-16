@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Core.Application.DTOs.Identity.EntityDTOs
+﻿namespace Restaurant.Core.Application.DTOs.Identity.Entity
 {
     public class ApplicationUserDTO
     {
