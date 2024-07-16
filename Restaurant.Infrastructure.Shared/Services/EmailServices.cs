@@ -8,7 +8,7 @@ using Restaurant.Core.Domain.Settings;
 
 namespace Restaurant.Infrastructure.Shared.Services
 {
-    public class EmailService(IOptions<EmailSettings> emailSettigns) : IEmailService
+    public class EmailServices(IOptions<EmailSettings> emailSettigns) : IEmailService
     {
         private readonly EmailSettings _emailSettings = emailSettigns.Value;
 
