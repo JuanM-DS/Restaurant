@@ -1,7 +1,7 @@
 ﻿using Restaurant.Core.Application.DTOs.Identity.EntityDTOs;
 using Restaurant.Core.Application.QueryFilters;
 
-namespace Restaurant.Core.Application.Interfaces.Identity.Repositories
+namespace Restaurant.Core.Application.Interfaces.Persistence.Repositories
 {
     public interface IUserRepository
     {

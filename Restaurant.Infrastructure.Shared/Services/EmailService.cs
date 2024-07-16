@@ -3,7 +3,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Restaurant.Core.Application.DTOs.Shared.Email;
-using Restaurant.Core.Application.Interfaces.Shared.Services;
+using Restaurant.Core.Application.Interfaces.Persistence.Services;
 using Restaurant.Core.Domain.Settings;
 
 namespace Restaurant.Infrastructure.Shared.Services
@@ -14,12 +14,14 @@ namespace Restaurant.Infrastructure.Shared.Services
 
         public async Task SendAsycn(EmailRequest request)
         {
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_emailSettings.EmailFrom);
-            email.To.Add(MailboxAddress.Parse(request.To));
-            email.Subject = request.Subject;
             var builder = new BodyBuilder() { HtmlBody = request.Body };
-            email.Body = builder.ToMessageBody();
+            var email = new MimeMessage
+            {
+                Sender = MailboxAddress.Parse(_emailSettings.EmailFrom),
+                Subject = request.Subject,
+                Body = builder.ToMessageBody()
+            };
+            email.To.Add(MailboxAddress.Parse(request.To));
 
             try
             {
