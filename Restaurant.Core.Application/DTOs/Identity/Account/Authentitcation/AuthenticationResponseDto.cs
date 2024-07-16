@@ -4,7 +4,7 @@ namespace Restaurant.Core.Application.DTOs.Identity.Account.Authentitcation
 {
     public class AuthenticationResponseDto
     {
-        public ApplicationUserDTO user { get; set; } = null!;
+        public ApplicationUserDto User { get; set; } = null!;
 
         public bool Success { get; set; }
 

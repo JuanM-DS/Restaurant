@@ -14,7 +14,7 @@ namespace Restaurant.Infrastructure.Identity.Repositories
         private readonly IMapper _mapper = mapper;
         private readonly DbSet<ApplicationUser> _users = context.Users;
 
-        public async Task<bool> Delete(ApplicationUserDTO userDto)
+        public async Task<bool> Delete(ApplicationUserDto userDto)
         {
             var user = _mapper.Map<ApplicationUser>(userDto);
             
@@ -31,20 +31,20 @@ namespace Restaurant.Infrastructure.Identity.Repositories
             }
         }
 
-        public IEnumerable<ApplicationUserDTO> GetAll()
+        public IEnumerable<ApplicationUserDto> GetAll()
         {
-            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDTO>>(_users.AsEnumerable());
+            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDto>>(_users.AsEnumerable());
             return userDTos;
         }
 
-        public async Task<ApplicationUserDTO?> GetById(string id)
+        public async Task<ApplicationUserDto?> GetById(string id)
         {
             var user = await _users.FindAsync(id);
-            var userDTo = _mapper.Map<ApplicationUserDTO>(user);
+            var userDTo = _mapper.Map<ApplicationUserDto>(user);
             return userDTo;
         }
 
-        public IEnumerable<ApplicationUserDTO> GetWithInclude(List<string> properties)
+        public IEnumerable<ApplicationUserDto> GetWithInclude(List<string> properties)
         {
             IQueryable<ApplicationUser> query = _users;
 
@@ -53,11 +53,11 @@ namespace Restaurant.Infrastructure.Identity.Repositories
                 query = query.Include(item);
             }
 
-            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDTO>>(query.AsEnumerable());
+            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDto>>(query.AsEnumerable());
             return userDTos;
         }
 
-        public async Task<ApplicationUserDTO?> GetWithInclude(string id, List<string> properties)
+        public async Task<ApplicationUserDto?> GetWithInclude(string id, List<string> properties)
         {
             IQueryable<ApplicationUser> query = _users;
 
@@ -68,12 +68,12 @@ namespace Restaurant.Infrastructure.Identity.Repositories
 
             var user = await query.FirstOrDefaultAsync(x => x.Id == id);
 
-            var userDTo = _mapper.Map<ApplicationUserDTO>(user);
+            var userDTo = _mapper.Map<ApplicationUserDto>(user);
 
             return userDTo;
         }
 
-        public IEnumerable<ApplicationUserDTO> GetWithInclude(UserQueryFilters filters, List<string> properties)
+        public IEnumerable<ApplicationUserDto> GetWithInclude(UserQueryFilters filters, List<string> properties)
         {
             IQueryable<ApplicationUser> query = _users;
 
@@ -98,11 +98,11 @@ namespace Restaurant.Infrastructure.Identity.Repositories
                 query = query.Include(item);
             }
 
-            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDTO>>(query.AsEnumerable());
+            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDto>>(query.AsEnumerable());
             return userDTos;
         }
 
-        public async Task<bool> Update(string id, ApplicationUserDTO userDto)
+        public async Task<bool> Update(string id, ApplicationUserDto userDto)
         {
             var user = await _users.FindAsync(id);
 

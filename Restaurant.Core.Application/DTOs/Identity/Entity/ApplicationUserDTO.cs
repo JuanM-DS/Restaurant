@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.Application.DTOs.Identity.Entity
 {
-    public class ApplicationUserDTO
+    public class ApplicationUserDto
     {
         public string Id { get; set; } = null!;
 
@@ -17,6 +17,6 @@
         public DateTime CreatedTime { get; set; }
 
         //Navigators
-        public ICollection<ApplicationRoleDTO> Roles { get; set; } = [];
+        public ICollection<ApplicationRoleDto> Roles { get; set; } = [];
     }
 }

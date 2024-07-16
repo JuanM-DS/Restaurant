@@ -2,6 +2,6 @@
 {
     public interface IUriServices
     {
-        public string CreateResetPasswordURl(string token, string userId);
+        public string GetResetPasswordURl(string token, string userId);
     }
 }

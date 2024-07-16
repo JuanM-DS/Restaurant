@@ -10,7 +10,7 @@ namespace Restaurant.Core.Application.Interfaces.Persistence.Services
     {
         public Task<AuthenticationResponseDto> AuthenticationAsync(AuthenticationRequestDto request); 
 
-        public Task<RegisterResponseDto> RegisterAsync(ApplicationUserDTO user);
+        public Task<RegisterResponseDto> RegisterAsync(ApplicationUserDto user);
 
         public Task SignOutAsync();
 

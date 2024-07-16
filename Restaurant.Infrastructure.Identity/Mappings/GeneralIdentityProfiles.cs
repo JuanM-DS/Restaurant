@@ -9,12 +9,12 @@ namespace Restaurant.Infrastructure.Identity.Mappings
         public GeneralIdentityProfiles()
         {
             #region user
-            CreateMap<ApplicationUser, ApplicationUserDTO>()
+            CreateMap<ApplicationUser, ApplicationUserDto>()
                 .ReverseMap();
             #endregion
 
             #region role
-            CreateMap<ApplicationRole, ApplicationRoleDTO>()
+            CreateMap<ApplicationRole, ApplicationRoleDto>()
                 .ReverseMap();
             #endregion
 

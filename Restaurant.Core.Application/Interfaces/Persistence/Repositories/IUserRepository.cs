@@ -5,18 +5,18 @@ namespace Restaurant.Core.Application.Interfaces.Persistence.Repositories
 {
     public interface IUserRepository
     {
-        public Task<bool> Update(string id, ApplicationUserDTO userDto);
+        public Task<bool> Update(string id, ApplicationUserDto userDto);
 
-        public Task<bool> Delete(ApplicationUserDTO userDto);
+        public Task<bool> Delete(ApplicationUserDto userDto);
 
-        public Task<ApplicationUserDTO?> GetById(string id);
+        public Task<ApplicationUserDto?> GetById(string id);
 
-        public IEnumerable<ApplicationUserDTO> GetAll();
+        public IEnumerable<ApplicationUserDto> GetAll();
 
-        public IEnumerable<ApplicationUserDTO> GetWithInclude(List<string> properties);
+        public IEnumerable<ApplicationUserDto> GetWithInclude(List<string> properties);
 
-        public Task<ApplicationUserDTO?> GetWithInclude(string id, List<string> properties);
+        public Task<ApplicationUserDto?> GetWithInclude(string id, List<string> properties);
 
-        public IEnumerable<ApplicationUserDTO> GetWithInclude(UserQueryFilters filter, List<string> properties);
+        public IEnumerable<ApplicationUserDto> GetWithInclude(UserQueryFilters filter, List<string> properties);
     }
 }

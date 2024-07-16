@@ -12,7 +12,7 @@ namespace Restaurant.Infrastructure.Shared.Services
             _origin = origin;
         }
 
-        public string CreateResetPasswordURl(string token, string userId)
+        public string GetResetPasswordURl(string token, string userId)
         {
             var route = "/User/ResetPassword";
 
