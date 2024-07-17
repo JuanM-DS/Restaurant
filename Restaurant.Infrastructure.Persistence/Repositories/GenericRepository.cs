@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restaurant.Core.Application.Interfaces.Core.Repositories;
+using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Domain.Common;
 using Restaurant.Infrastructure.Persistence.Context;
 using System.Linq.Expressions;

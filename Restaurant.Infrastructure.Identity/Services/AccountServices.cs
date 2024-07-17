@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
-using Restaurant.Core.Application.DTOs.Identity.Account.Authentitcation;
-using Restaurant.Core.Application.DTOs.Identity.Account.ForgotPassword;
-using Restaurant.Core.Application.DTOs.Identity.Account.Register;
-using Restaurant.Core.Application.DTOs.Identity.Account.ResetPassword;
-using Restaurant.Core.Application.DTOs.Identity.Entity;
-using Restaurant.Core.Application.DTOs.Shared.Email;
-using Restaurant.Core.Application.Interfaces.Persistence.Services;
-using Restaurant.Core.Application.Interfaces.Shared.Services;
+using Restaurant.Core.Application.DTOs.Entities.ApplicationUser;
+using Restaurant.Core.Application.DTOs.Services.Authentitcation;
+using Restaurant.Core.Application.DTOs.Services.Email;
+using Restaurant.Core.Application.DTOs.Services.ForgotPassword;
+using Restaurant.Core.Application.DTOs.Services.Register;
+using Restaurant.Core.Application.DTOs.Services.ResetPassword;
+using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Infrastructure.Identity.Entities;
 using System.Text;
 
