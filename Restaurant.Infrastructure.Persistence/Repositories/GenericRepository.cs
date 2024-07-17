@@ -57,7 +57,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return query.AsEnumerable();
         }
 
-        public async Task<TEntity?> GetById(int id)
+        public async Task<TEntity?> GetByIdAsync(int id)
         {
             return await _entity.FindAsync(id);
         }

@@ -3,7 +3,8 @@ using System.Linq.Expressions;
 
 namespace Restaurant.Core.Application.Interfaces.Repositories
 {
-    public interface IGenericRepository<TEntity> where TEntity : BaseEntity
+    public interface IGenericRepository<TEntity> 
+        where TEntity : BaseEntity
     {
         public Task<bool> Create(TEntity entity);
 
@@ -11,7 +12,7 @@ namespace Restaurant.Core.Application.Interfaces.Repositories
 
         public Task<bool> Delete(TEntity entity);
 
-        public Task<TEntity?> GetById(int id);
+        public Task<TEntity?> GetByIdAsync(int id);
 
         public IEnumerable<TEntity> GetAll();
 

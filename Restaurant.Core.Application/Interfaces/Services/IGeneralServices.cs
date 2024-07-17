@@ -1,20 +1,19 @@
-﻿using Restaurant.Core.Application.CustomEntities;
-using Restaurant.Core.Domain.Common;
+﻿using Restaurant.Core.Domain.Common;
 
 namespace Restaurant.Core.Application.Interfaces.Services
 {
     public interface IGeneralServices<TEntityDto, TEntity>
-        where TEntity : AuditableBaseEntity
+        where TEntity : BaseEntity
         where TEntityDto : class
     {
         public Task<TEntityDto> CreateAsync(TEntityDto entityDto);
 
-        public Task UpdateAsync(TEntityDto entityDto);
+        public Task UpdateAsync(int entityDtoId, TEntityDto entityDto);
 
-        public Task DeleteAsync(TEntityDto entityDto);
+        public Task DeleteAsync(int entityDtoId);
 
-        public PagedList<IEnumerable<TEntityDto>> GetAll();
+        public List<TEntityDto> GetAll();
 
-        public Task<TEntityDto> GetByIdAsync(int entityId);
+        public Task<TEntityDto?> GetByIdAsync(int entityDtoId);
     }
 }
