@@ -1,6 +1,7 @@
+using Middleware.Filters;
+using Restaurant.Infrastructure.Identity;
 using Restaurant.Infrastructure.Persistence;
 using Restaurant.Infrastructure.Shared;
-using Restaurant.Infrastructure.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddPersistenceLayer(builder.Configuration);
 builder.Services.AddServiceIdentityLayer(builder.Configuration);
 builder.Services.AddSharedLayer(builder.Configuration);
+builder.Services.AddControllers(option => option.Filters.Add<GlobalException>());
 #endregion
 
 builder.Services.AddControllers();
