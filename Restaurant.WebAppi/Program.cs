@@ -12,10 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region dependency injection
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddApplicatinLayer(builder.Configuration);
 builder.Services.AddPersistenceLayer(builder.Configuration);
 builder.Services.AddIdentityLayer(builder.Configuration);
 builder.Services.AddSharedLayer(builder.Configuration);
-builder.Services.AddApplicatinLayer(builder.Configuration);
 builder.Services.AddControllers(option => option.Filters.Add<GlobalException>());
 builder.Services.AddControllers()
     .AddNewtonsoftJson(option =>

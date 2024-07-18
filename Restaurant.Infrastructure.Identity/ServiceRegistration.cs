@@ -8,11 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Restaurant.Core.Application.CustomEntities;
+using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Domain.Settings;
 using Restaurant.Infrastructure.Identity.Context;
 using Restaurant.Infrastructure.Identity.Entities;
+using Restaurant.Infrastructure.Identity.Repositories;
 using Restaurant.Infrastructure.Identity.Seeds;
-using System;
 using System.Text;
 
 namespace Restaurant.Infrastructure.Identity
@@ -38,6 +39,10 @@ namespace Restaurant.Infrastructure.Identity
 
             #region settings
             service.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            #endregion
+
+            #region repositories
+            service.AddTransient<IUserRepository, UserRepository>();
             #endregion
 
             #region Jwt configuration
