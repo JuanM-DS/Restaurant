@@ -28,8 +28,9 @@ namespace Restaurant.Infrastructure.Shared
             });
             #endregion
 
-            #region fluent validations
+            #region validation filter and fluent validations
             service.AddMvc(option => option.Filters.Add<ValidationFilter>())
+                .ConfigureApiBehaviorOptions(option => option.SuppressModelStateInvalidFilter =true)
                 .AddFluentValidation(provider => provider.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             #endregion
         }

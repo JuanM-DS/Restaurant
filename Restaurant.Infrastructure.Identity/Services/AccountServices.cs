@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.DTOs.Services.Authentitcation;
 using Restaurant.Core.Application.DTOs.Services.Email;
@@ -8,7 +11,12 @@ using Restaurant.Core.Application.DTOs.Services.ForgotPassword;
 using Restaurant.Core.Application.DTOs.Services.Register;
 using Restaurant.Core.Application.DTOs.Services.ResetPassword;
 using Restaurant.Core.Application.Interfaces.Services;
+using Restaurant.Core.Domain.Settings;
 using Restaurant.Infrastructure.Identity.Entities;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Restaurant.Infrastructure.Identity.Services
@@ -19,7 +27,8 @@ namespace Restaurant.Infrastructure.Identity.Services
         SignInManager<ApplicationUser> signInManager,
         IMapper mapper,
         IUriServices uriServices,
-        IEmailService emailServices
+        IEmailService emailServices,
+        IOptions<JwtSettings> jwtSettings
         ) : IAccountServices
     {
         private readonly UserManager<ApplicationUser> _userManager = userManager;
@@ -27,6 +36,7 @@ namespace Restaurant.Infrastructure.Identity.Services
         private readonly IMapper _mapper = mapper;
         private readonly IUriServices _uriServices = uriServices;
         private readonly IEmailService _emailServices = emailServices;
+        private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
         public async Task<AuthenticationResponseDto> AuthenticationAsync(AuthenticationRequestDto request)
         {
@@ -51,10 +61,14 @@ namespace Restaurant.Infrastructure.Identity.Services
             var roles = await _userManager.GetRolesAsync(userByName).ConfigureAwait(false);
             userDto.Roles = roles.ToList().ConvertAll(x => new ApplicationRoleDto(x));
 
+            var token = await GenerateJWtTokenAsync(userByName);
+            
             return new()
             {
                 User = userDto,
                 Success = true,
+                JWToken = token,
+                RefreshToken = GenerateRefreshToken().Token
             };
         }
 
@@ -166,6 +180,67 @@ namespace Restaurant.Infrastructure.Identity.Services
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        private async Task<string> GenerateJWtTokenAsync(ApplicationUser user)
+        {
+            #region Header
+            var symmetricSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+            var signingCredentials = new SigningCredentials(symmetricSigningKey, SecurityAlgorithms.HmacSha256);
+            var header = new JwtHeader(signingCredentials);
+            #endregion
+
+            #region Claims
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var roleClaims = roles.Select(x => new Claim("roles", x));
+
+            var claims = new[]
+            {
+                new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("UserId", user.Id)
+            }
+            .Union(roleClaims)
+            .Union(userClaims);
+            #endregion
+
+            #region Playload
+            var payload = new JwtPayload(
+                issuer : _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                notBefore: DateTime.UtcNow,
+                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutenes)
+                );
+            #endregion
+
+            #region final token
+            var token = new JwtSecurityToken(header, payload);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+            #endregion
+        }
+
+        public RefreshToken GenerateRefreshToken()
+        {
+            return new RefreshToken()
+            {
+                Token = RandomTokenString(),
+                Expires = DateTime.UtcNow.AddDays(7),
+                Created = DateTime.UtcNow
+            };
+        }
+
+        public string RandomTokenString()
+        {
+            using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            var ramdonBytes = new byte[40];
+            rngCryptoServiceProvider.GetBytes(ramdonBytes);
+
+            return BitConverter.ToString(ramdonBytes).Replace("_", "");
         }
     }
 }
