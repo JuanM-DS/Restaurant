@@ -6,11 +6,11 @@ namespace Restaurant.Core.Application.Interfaces.Repositories
     public interface IGenericRepository<TEntity> 
         where TEntity : BaseEntity
     {
-        public Task<bool> Create(TEntity entity);
+        public Task<bool> CreateAsync(TEntity entity);
 
-        public Task<bool> Update(TEntity entity);
+        public Task<bool> UpdateAsync(TEntity entity);
 
-        public Task<bool> Delete(TEntity entity);
+        public Task<bool> DeleteAsync(TEntity entity);
 
         public Task<TEntity?> GetByIdAsync(int id);
 
@@ -18,6 +18,6 @@ namespace Restaurant.Core.Application.Interfaces.Repositories
 
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] properties);
 
-        public Task<TEntity?> GetWithInclude(int id, params Expression<Func<TEntity, object>>[] properties);
+        public Task<TEntity?> GetWithIncludeAsync(int id, params Expression<Func<TEntity, object>>[] properties);
     }
 }

@@ -1,8 +1,6 @@
-﻿using Restaurant.Core.Domain.Common;
-
-namespace Restaurant.Core.Application.DTOs.Entities
+﻿namespace Restaurant.Core.Application.DTOs.Entities
 {
-    public class DishCategory
+    public class DishCategoryDto
     {
         public string Name { get; set; } = null!;
 

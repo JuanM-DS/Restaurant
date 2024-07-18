@@ -23,6 +23,11 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return query.AsEnumerable();
         }
 
+        public async Task<Ingredient?> GetByNameAsync(string name)
+        {
+            return await _entity.FirstOrDefaultAsync(x => x.Name == name);
+        }
+
         public IEnumerable<Ingredient> GetWithInclude(IngredientQueryFilters filters, params Expression<Func<Ingredient, object>>[] properties)
         {
             IQueryable<Ingredient> query = _entity;

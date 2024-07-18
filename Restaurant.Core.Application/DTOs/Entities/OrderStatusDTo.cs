@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Core.Application.DTOs.Entities
 {
-    public class OrderStatusDTo
+    public class OrderStatusDto
     {
         public string Name { get; set; } = null!;
     }

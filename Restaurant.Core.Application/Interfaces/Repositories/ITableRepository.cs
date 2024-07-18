@@ -9,5 +9,7 @@ namespace Restaurant.Core.Application.Interfaces.Repositories
         public IEnumerable<Table> GetAllWithFilter(TableQueryFilters filters);
 
         public IEnumerable<Table> GetWithInclude(TableQueryFilters filters, params Expression<Func<Table, object>>[] properties);
+
+        public Task<string?> GetStatusOfTableById(int tableId);
     }
 }

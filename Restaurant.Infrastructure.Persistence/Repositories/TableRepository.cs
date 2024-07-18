@@ -26,6 +26,12 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return query.AsEnumerable();
         }
 
+        public async Task<string?> GetStatusOfTableById(int tableId)
+        {
+            var table = await _entity.Include(x=>x.Status).FirstOrDefaultAsync(x=>x.Id == tableId);
+            return table is not null ? table.Status.Name : null;
+        }
+
         public IEnumerable<Table> GetWithInclude(TableQueryFilters filters, params Expression<Func<Table, object>>[] properties)
         {
             IQueryable<Table> query = _entity;

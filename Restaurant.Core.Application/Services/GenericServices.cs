@@ -20,11 +20,11 @@ namespace Restaurant.Core.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<TEntityDto> CreateAsync(TEntityDto entityDto)
+        public virtual async Task<TEntityDto> CreateAsync(TEntityDto entityDto)
         {
             var tEntity = _mapper.Map<TEntity>(entityDto);
 
-            var result = await _genericRepository.Create(tEntity);
+            var result = await _genericRepository.CreateAsync(tEntity);
             if (!result)
                 throw new BusinessException($"There is a error while creating the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
 
@@ -32,39 +32,39 @@ namespace Restaurant.Core.Application.Services
             return newEntityDto;
         }
 
-        public async Task DeleteAsync(int entityDtoId)
+        public virtual async Task DeleteAsync(int entityDtoId)
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
             if (tEntityById is null)
                 throw new BusinessException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
 
-            var result = await  _genericRepository.Delete(tEntityById);
+            var result = await  _genericRepository.DeleteAsync(tEntityById);
             if(result)
                 throw new BusinessException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
 
-        public List<TEntityDto> GetAll()
+        public virtual List<TEntityDto> GetAll()
         {
             var tEntities = _genericRepository.GetAll();
 
             return _mapper.Map<List<TEntityDto>>(tEntities);
         }
 
-        public async Task<TEntityDto?> GetByIdAsync(int entityDtoId)
+        public virtual async Task<TEntityDto?> GetByIdAsync(int entityDtoId)
         {
             var tEntity = await _genericRepository.GetByIdAsync(entityDtoId);
 
             return _mapper.Map<TEntityDto>(tEntity);
         }
 
-        public async Task UpdateAsync(int entityDtoId, TEntityDto entityDto)
+        public virtual async Task UpdateAsync(int entityDtoId, TEntityDto entityDto)
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
             if (tEntityById is null)
                 throw new BusinessException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
 
             _mapper.Map(entityDto, tEntityById);
-            var result = await _genericRepository.Update(tEntityById);
+            var result = await _genericRepository.UpdateAsync(tEntityById);
             if (result)
                 throw new BusinessException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }

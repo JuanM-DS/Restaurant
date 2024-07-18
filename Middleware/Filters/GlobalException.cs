@@ -9,9 +9,9 @@ namespace Middleware.Filters
     {
         public void OnException(ExceptionContext filterContext)
         {
-            if(filterContext.Exception.GetType() == typeof(BusinessException))
+            if(filterContext.Exception.GetType() == typeof(Restaurant.Core.Application.Exceptions.RestaurantException))
             {
-                var exception = filterContext.Exception as BusinessException;
+                var exception = filterContext.Exception as Restaurant.Core.Application.Exceptions.RestaurantException;
 
                 var response = new Response<object>()
                 {

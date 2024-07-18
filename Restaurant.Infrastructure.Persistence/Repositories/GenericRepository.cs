@@ -13,7 +13,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
         protected readonly RestaurantDbContext _context = context;
         protected readonly DbSet<TEntity> _entity = context.Set<TEntity>();
 
-        public async Task<bool> Create(TEntity entity)
+        public async Task<bool> CreateAsync(TEntity entity)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             }
         }
 
-        public async Task<bool> Delete(TEntity entity)
+        public async Task<bool> DeleteAsync(TEntity entity)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return await _entity.FindAsync(id);
         }
 
-        public async Task<TEntity?> GetWithInclude(int id, params Expression<Func<TEntity, object>>[] properties)
+        public async Task<TEntity?> GetWithIncludeAsync(int id, params Expression<Func<TEntity, object>>[] properties)
         {
             IQueryable<TEntity> query = _entity;
 
@@ -75,7 +75,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return entity;
         }
 
-        public async Task<bool> Update(TEntity entity)
+        public async Task<bool> UpdateAsync(TEntity entity)
         {
             try
             {

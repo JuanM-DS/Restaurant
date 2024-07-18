@@ -10,5 +10,6 @@ namespace Restaurant.Core.Application.Interfaces.Repositories
 
         public IEnumerable<Ingredient> GetWithInclude(IngredientQueryFilters filters, params Expression<Func<Ingredient, object>>[] properties);
 
+        public Task<Ingredient?> GetByNameAsync(string name);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Core.Application.DTOs.Entities
+﻿using Restaurant.Core.Domain.Entities;
+
+namespace Restaurant.Core.Application.DTOs.Entities
 {
     public class DishDto
     {
@@ -9,5 +11,8 @@
         public int Portions { get; set; }
 
         public int CategoryId { get; set; }
+
+        public List<Ingredient> Ingredients { get; set; } = [];
+
     }
 }

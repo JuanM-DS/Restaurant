@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Restaurant.Core.Application.Exceptions;
 using Restaurant.Core.Domain.Common;
 using Restaurant.Core.Domain.Entities;
+using System.Net;
 using System.Reflection;
 
 namespace Restaurant.Infrastructure.Persistence.Context
@@ -28,8 +30,7 @@ namespace Restaurant.Infrastructure.Persistence.Context
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-
-            foreach (var item in ChangeTracker.Entries<AuditableBaseEntity>())
+            foreach (var item in ChangeTracker.Entries<BaseEntity>())
             {
                 switch (item.State)
                 {
@@ -41,10 +42,38 @@ namespace Restaurant.Infrastructure.Persistence.Context
                         item.Entity.CreatedTime = DateTime.Now;
                         item.Entity.CreatedBy = "user"; // change by the user
                         break;
+
+                    case EntityState.Deleted:
+                        PreventSeededEntityDeletion(item.Entity);
+                        break;
                 }
             }
 
             return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void PreventSeededEntityDeletion(BaseEntity entity)
+        {
+            int[] seedIdOfTableStatus = { 1, 2, 3};
+
+            int[] seedIdOfOrderStatus = { 1, 2};
+
+            switch (entity)
+            {
+                case TableStatus:
+                    if (seedIdOfTableStatus.Contains(entity.Id))
+                    {
+                        throw new RestaurantException("Cannot delete seeded entities.", HttpStatusCode.BadRequest);
+                    }
+                    break;
+
+                case OrderStatus:
+                    if (seedIdOfOrderStatus.Contains(entity.Id))
+                    {
+                        throw new RestaurantException("Cannot delete seeded entities.", HttpStatusCode.BadRequest);
+                    }
+                    break;
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

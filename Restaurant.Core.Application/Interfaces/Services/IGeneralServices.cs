@@ -17,3 +17,4 @@ namespace Restaurant.Core.Application.Interfaces.Services
         public Task<TEntityDto?> GetByIdAsync(int entityDtoId);
     }
 }
+
