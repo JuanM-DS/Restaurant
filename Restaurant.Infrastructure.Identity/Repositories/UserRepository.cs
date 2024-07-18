@@ -57,7 +57,7 @@ namespace Restaurant.Infrastructure.Identity.Repositories
             return userDTos;
         }
 
-        public async Task<ApplicationUserDto?> GetWithIncludeAsync(string id, List<string> properties)
+        public async Task<ApplicationUserDto?> GetByIdWithIncludeAsync(string id, List<string> properties)
         {
             IQueryable<ApplicationUser> query = _users;
 
@@ -119,6 +119,43 @@ namespace Restaurant.Infrastructure.Identity.Repositories
             {
                 return false;
             }
+        }
+
+        public IEnumerable<ApplicationUserDto> GetAllWithFilters(UserQueryFilters filters)
+        {
+            IQueryable<ApplicationUser> query = _users;
+
+            if (filters.FirstName is not null)
+                query = query.Where(x => x.FirstName == filters.FirstName);
+
+            if (filters.LastName is not null)
+                query = query.Where(x => x.LastName == filters.LastName);
+
+            if (filters.UserName is not null)
+                query = query.Where(x => x.UserName == filters.UserName);
+
+            if (filters.Email is not null)
+                query = query.Where(x => x.Email == filters.Email);
+
+            if (filters.EmailConfirmed is not null)
+                query = query.Where(x => x.EmailConfirmed == filters.EmailConfirmed);
+
+            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDto>>(query.AsEnumerable());
+            return userDTos;
+        }
+
+        public async Task<ApplicationUserDto?> GetByNameAsync(string name)
+        {
+            var user = await _users.FirstOrDefaultAsync(x=>x.UserName == name);
+            var userDTo = _mapper.Map<ApplicationUserDto>(user);
+            return userDTo;
+        }
+
+        public async Task<ApplicationUserDto?> GetByEmailAsync(string email)
+        {
+            var user = await _users.FirstOrDefaultAsync(x=>x.Email == email);
+            var userDTo = _mapper.Map<ApplicationUserDto>(user);
+            return userDTo;
         }
     }
 }
