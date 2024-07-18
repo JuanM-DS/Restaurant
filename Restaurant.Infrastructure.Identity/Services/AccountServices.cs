@@ -88,7 +88,7 @@ namespace Restaurant.Infrastructure.Identity.Services
             };
         }
 
-        public async Task<RegisterResponseDto> RegisterAsync(ApplicationUserDto request)
+        public async Task<RegisterResponseDto> RegisterAsync(SaveApplicationUserDto request)
         {
             var userByName = await _userManager.FindByNameAsync(request.UserName);
             if (userByName is not  null)
@@ -120,7 +120,13 @@ namespace Restaurant.Infrastructure.Identity.Services
                 };
 
             var roles = request.Roles.Select(x => x.Name).ToList();
-            await _userManager.AddToRolesAsync(user, roles);
+            result = await _userManager.AddToRolesAsync(user, roles);
+            if (!result.Succeeded)
+                return new()
+                {
+                    Success = false,
+                    Error = result.Errors.First().Description
+                };
 
             var userDto = _mapper.Map<ApplicationUserDto>(user);
 

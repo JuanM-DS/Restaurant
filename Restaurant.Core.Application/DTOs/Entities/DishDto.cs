@@ -1,6 +1,4 @@
-﻿using Restaurant.Core.Domain.Entities;
-
-namespace Restaurant.Core.Application.DTOs.Entities
+﻿namespace Restaurant.Core.Application.DTOs.Entities
 {
     public class DishDto
     {
