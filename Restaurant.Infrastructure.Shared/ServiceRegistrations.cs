@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Restaurant.Core.Application.Interfaces.Persistence.Services;
-using Restaurant.Core.Application.Interfaces.Shared.Services;
+using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Domain.Settings;
 using Restaurant.Infrastructure.Shared.Services;
 

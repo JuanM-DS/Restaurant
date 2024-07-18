@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Restaurant.Core.Application.DTOs.Identity.Entity;
-using Restaurant.Core.Application.Interfaces.Persistence.Repositories;
+using Restaurant.Core.Application.DTOs.Entities;
+using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Infrastructure.Identity.Context;
 using Restaurant.Infrastructure.Identity.Entities;
@@ -14,7 +14,7 @@ namespace Restaurant.Infrastructure.Identity.Repositories
         private readonly IMapper _mapper = mapper;
         private readonly DbSet<ApplicationUser> _users = context.Users;
 
-        public async Task<bool> Delete(ApplicationUserDto userDto)
+        public async Task<bool> DeleteAsync(ApplicationUserDto userDto)
         {
             var user = _mapper.Map<ApplicationUser>(userDto);
             
@@ -37,7 +37,7 @@ namespace Restaurant.Infrastructure.Identity.Repositories
             return userDTos;
         }
 
-        public async Task<ApplicationUserDto?> GetById(string id)
+        public async Task<ApplicationUserDto?> GetByIdAsync(string id)
         {
             var user = await _users.FindAsync(id);
             var userDTo = _mapper.Map<ApplicationUserDto>(user);
@@ -57,7 +57,7 @@ namespace Restaurant.Infrastructure.Identity.Repositories
             return userDTos;
         }
 
-        public async Task<ApplicationUserDto?> GetWithInclude(string id, List<string> properties)
+        public async Task<ApplicationUserDto?> GetByIdWithIncludeAsync(string id, List<string> properties)
         {
             IQueryable<ApplicationUser> query = _users;
 
@@ -102,7 +102,7 @@ namespace Restaurant.Infrastructure.Identity.Repositories
             return userDTos;
         }
 
-        public async Task<bool> Update(string id, ApplicationUserDto userDto)
+        public async Task<bool> UpdateAsync(string id, ApplicationUserDto userDto)
         {
             var user = await _users.FindAsync(id);
 
@@ -119,6 +119,43 @@ namespace Restaurant.Infrastructure.Identity.Repositories
             {
                 return false;
             }
+        }
+
+        public IEnumerable<ApplicationUserDto> GetAllWithFilters(UserQueryFilters filters)
+        {
+            IQueryable<ApplicationUser> query = _users;
+
+            if (filters.FirstName is not null)
+                query = query.Where(x => x.FirstName == filters.FirstName);
+
+            if (filters.LastName is not null)
+                query = query.Where(x => x.LastName == filters.LastName);
+
+            if (filters.UserName is not null)
+                query = query.Where(x => x.UserName == filters.UserName);
+
+            if (filters.Email is not null)
+                query = query.Where(x => x.Email == filters.Email);
+
+            if (filters.EmailConfirmed is not null)
+                query = query.Where(x => x.EmailConfirmed == filters.EmailConfirmed);
+
+            var userDTos = _mapper.Map<IEnumerable<ApplicationUserDto>>(query.AsEnumerable());
+            return userDTos;
+        }
+
+        public async Task<ApplicationUserDto?> GetByNameAsync(string name)
+        {
+            var user = await _users.FirstOrDefaultAsync(x=>x.UserName == name);
+            var userDTo = _mapper.Map<ApplicationUserDto>(user);
+            return userDTo;
+        }
+
+        public async Task<ApplicationUserDto?> GetByEmailAsync(string email)
+        {
+            var user = await _users.FirstOrDefaultAsync(x=>x.Email == email);
+            var userDTo = _mapper.Map<ApplicationUserDto>(user);
+            return userDTo;
         }
     }
 }

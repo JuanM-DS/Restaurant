@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restaurant.Core.Application.Interfaces.Core.Repositories;
+using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
 using Restaurant.Infrastructure.Persistence.Context;
@@ -30,6 +30,11 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
                 query = query.Where(x => x.CategoryId == filters.CategoryId);
 
             return query.AsEnumerable();
+        }
+
+        public async Task<Dish?> GetByNameAsync(string name)
+        {
+            return await _entity.FirstOrDefaultAsync(x => x.Name == name);
         }
 
         public IEnumerable<Dish> GetWithInclude(DishQueryFilters filters, params Expression<Func<Dish, object>>[] properties)

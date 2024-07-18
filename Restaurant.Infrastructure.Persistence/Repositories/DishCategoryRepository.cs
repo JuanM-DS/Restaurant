@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restaurant.Core.Application.Interfaces.Core.Repositories;
+using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
 using Restaurant.Infrastructure.Persistence.Context;
@@ -13,7 +13,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             : base(context)
         {}
 
-        public IEnumerable<DishCategory> GetAll(DishCategoryQueryFilters filters)
+        public IEnumerable<DishCategory> GetAllWithFilter(DishCategoryQueryFilters filters)
         {
             IQueryable<DishCategory> query = _entity;
 
@@ -21,6 +21,11 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
                 query = query.Where(x => x.Name == filters.Name);
 
             return query.AsEnumerable();
+        }
+
+        public async Task<DishCategory?> GetByNameAsync(string name)
+        {
+            return await _entity.FirstOrDefaultAsync(x => x.Name == name);
         }
 
         public IEnumerable<DishCategory> GetWithInclude(DishCategoryQueryFilters filters, params Expression<Func<DishCategory, object>>[] properties)

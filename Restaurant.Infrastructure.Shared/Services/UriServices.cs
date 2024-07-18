@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
-using Restaurant.Core.Application.Interfaces.Persistence.Services;
+using Restaurant.Core.Application.Interfaces.Services;
 
 namespace Restaurant.Infrastructure.Shared.Services
 {
