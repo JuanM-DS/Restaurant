@@ -18,6 +18,6 @@ namespace Restaurant.Core.Application.Interfaces.Repositories
 
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] properties);
 
-        public Task<TEntity?> GetWithIncludeAsync(int id, params Expression<Func<TEntity, object>>[] properties);
+        public Task<TEntity?> GetByIdWithIncludeAsync(int id, params Expression<Func<TEntity, object>>[] properties);
     }
 }

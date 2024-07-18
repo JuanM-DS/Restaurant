@@ -13,7 +13,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             : base(context)
         {}
 
-        public IEnumerable<DishCategory> GetAll(DishCategoryQueryFilters filters)
+        public IEnumerable<DishCategory> GetAllWithFilter(DishCategoryQueryFilters filters)
         {
             IQueryable<DishCategory> query = _entity;
 

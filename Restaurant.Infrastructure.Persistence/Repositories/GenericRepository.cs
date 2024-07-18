@@ -62,7 +62,7 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return await _entity.FindAsync(id);
         }
 
-        public async Task<TEntity?> GetWithIncludeAsync(int id, params Expression<Func<TEntity, object>>[] properties)
+        public async Task<TEntity?> GetByIdWithIncludeAsync(int id, params Expression<Func<TEntity, object>>[] properties)
         {
             IQueryable<TEntity> query = _entity;
 

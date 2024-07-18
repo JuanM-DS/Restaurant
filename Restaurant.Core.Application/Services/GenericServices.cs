@@ -26,7 +26,7 @@ namespace Restaurant.Core.Application.Services
 
             var result = await _genericRepository.CreateAsync(tEntity);
             if (!result)
-                throw new BusinessException($"There is a error while creating the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
+                throw new RestaurantException($"There is a error while creating the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
 
             var newEntityDto = _mapper.Map<TEntityDto>(tEntity);
             return newEntityDto;
@@ -36,11 +36,11 @@ namespace Restaurant.Core.Application.Services
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
             if (tEntityById is null)
-                throw new BusinessException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
+                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
 
             var result = await  _genericRepository.DeleteAsync(tEntityById);
             if(result)
-                throw new BusinessException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
+                throw new RestaurantException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
 
         public virtual List<TEntityDto> GetAll()
@@ -61,12 +61,12 @@ namespace Restaurant.Core.Application.Services
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
             if (tEntityById is null)
-                throw new BusinessException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
+                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
 
             _mapper.Map(entityDto, tEntityById);
             var result = await _genericRepository.UpdateAsync(tEntityById);
             if (result)
-                throw new BusinessException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
+                throw new RestaurantException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
     }
 }

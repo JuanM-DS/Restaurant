@@ -3,6 +3,7 @@ using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.Exceptions;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.Interfaces.Services;
+using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
 using System.Net;
 
@@ -24,16 +25,22 @@ namespace Restaurant.Core.Application.Services
         {
             var ingredientByName = await _ingredientRepository.GetByNameAsync(entityDto.Name);
             if (ingredientByName is not null)
-                throw new Exceptions.RestaurantException($"The name: {entityDto.Name} is already taken", HttpStatusCode.BadRequest);
+                throw new RestaurantException($"The name: {entityDto.Name} is already taken", HttpStatusCode.BadRequest);
 
             return await base.CreateAsync(entityDto); 
+        }
+
+        public List<IngredientDto> GetAll(IngredientQueryFilters filters)
+        {
+            var ingredients = _ingredientRepository.GetAllWithFilter(filters);
+            return _mapper.Map<List<IngredientDto>>(ingredients);
         }
 
         public override async Task UpdateAsync(int entityDtoId, IngredientDto entityDto)
         {
             var ingredientByName = await _ingredientRepository.GetByNameAsync(entityDto.Name);
             if (ingredientByName is not null && ingredientByName.Id != entityDtoId)
-                throw new Exceptions.RestaurantException($"The name: {entityDto.Name} is already taken", HttpStatusCode.BadRequest);
+                throw new RestaurantException($"The name: {entityDto.Name} is already taken", HttpStatusCode.BadRequest);
 
             await base.UpdateAsync(entityDtoId, entityDto); 
         }

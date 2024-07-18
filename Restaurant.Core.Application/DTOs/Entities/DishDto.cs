@@ -12,7 +12,6 @@ namespace Restaurant.Core.Application.DTOs.Entities
 
         public int CategoryId { get; set; }
 
-        public List<Ingredient> Ingredients { get; set; } = [];
-
+        public List<IngredientDto> Ingredients { get; set; } = [];
     }
 }
