@@ -1,4 +1,4 @@
-﻿using Restaurant.Core.Application.DTOs.Entities.ApplicationUser;
+﻿using Restaurant.Core.Application.DTOs.Entities;
 
 namespace Restaurant.Core.Application.DTOs.Services.Register
 {

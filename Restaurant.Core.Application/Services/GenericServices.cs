@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Restaurant.Core.Application.Exceptions;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Domain.Common;
+using System.Net;
 
 namespace Restaurant.Core.Application.Services
 {
@@ -24,7 +26,7 @@ namespace Restaurant.Core.Application.Services
 
             var result = await _genericRepository.Create(tEntity);
             if (!result)
-                throw new Exception($"There is a error while creating the {typeof(TEntity).Name}");
+                throw new BusinessException($"There is a error while creating the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
 
             var newEntityDto = _mapper.Map<TEntityDto>(tEntity);
             return newEntityDto;
@@ -34,11 +36,11 @@ namespace Restaurant.Core.Application.Services
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
             if (tEntityById is null)
-                throw new Exception($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}");
+                throw new BusinessException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
 
             var result = await  _genericRepository.Delete(tEntityById);
             if(result)
-                throw new Exception($"There is a error while deleting the {typeof(TEntity).Name}");
+                throw new BusinessException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
 
         public List<TEntityDto> GetAll()
@@ -59,12 +61,12 @@ namespace Restaurant.Core.Application.Services
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
             if (tEntityById is null)
-                throw new Exception($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}");
+                throw new BusinessException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
 
             _mapper.Map(entityDto, tEntityById);
             var result = await _genericRepository.Update(tEntityById);
             if (result)
-                throw new Exception($"There is a error while deleting the {typeof(TEntity).Name}");
+                throw new BusinessException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
     }
 }

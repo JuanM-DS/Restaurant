@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Restaurant.Core.Application.DTOs.Entities.ApplicationUser;
+using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Infrastructure.Identity.Entities;
 
 namespace Restaurant.Infrastructure.Identity.Mappings

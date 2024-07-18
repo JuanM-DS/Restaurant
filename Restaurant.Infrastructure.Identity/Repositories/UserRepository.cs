@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Restaurant.Core.Application.DTOs.Entities.ApplicationUser;
+using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Infrastructure.Identity.Context;

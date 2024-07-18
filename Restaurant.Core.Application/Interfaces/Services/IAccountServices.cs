@@ -1,4 +1,4 @@
-﻿using Restaurant.Core.Application.DTOs.Entities.ApplicationUser;
+﻿using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.DTOs.Services.Authentitcation;
 using Restaurant.Core.Application.DTOs.Services.ForgotPassword;
 using Restaurant.Core.Application.DTOs.Services.Register;

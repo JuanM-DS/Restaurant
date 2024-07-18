@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
-using Restaurant.Core.Application.DTOs.Entities.ApplicationUser;
+using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.DTOs.Services.Authentitcation;
 using Restaurant.Core.Application.DTOs.Services.Email;
 using Restaurant.Core.Application.DTOs.Services.ForgotPassword;

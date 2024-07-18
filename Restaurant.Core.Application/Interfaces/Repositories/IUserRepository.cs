@@ -1,4 +1,4 @@
-﻿using Restaurant.Core.Application.DTOs.Entities.ApplicationUser;
+﻿using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.QueryFilters;
 
 namespace Restaurant.Core.Application.Interfaces.Repositories
