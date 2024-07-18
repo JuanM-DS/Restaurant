@@ -88,7 +88,7 @@ namespace Restaurant.Infrastructure.Identity.Services
             };
         }
 
-        public async Task<RegisterResponseDto> RegisterAsync(SaveApplicationUserDto request)
+        public async Task<RegisterResponseDto> RegisterAsync(ApplicationUserDto request)
         {
             var userByName = await _userManager.FindByNameAsync(request.UserName);
             if (userByName is not  null)

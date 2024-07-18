@@ -5,13 +5,13 @@ using Restaurant.Core.Application.Exceptions;
 
 namespace Middleware.Filters
 {
-    public class GlobalException : IExceptionFilter
+    public partial class GlobalException : IExceptionFilter
     {
         public void OnException(ExceptionContext filterContext)
         {
-            if(filterContext.Exception.GetType() == typeof(Restaurant.Core.Application.Exceptions.RestaurantException))
+            if(filterContext.Exception.GetType() == typeof(RestaurantException))
             {
-                var exception = filterContext.Exception as Restaurant.Core.Application.Exceptions.RestaurantException;
+                var exception = filterContext.Exception as RestaurantException;
 
                 var response = new Response<object>()
                 {

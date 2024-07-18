@@ -39,12 +39,6 @@ namespace Restaurant.Core.Application.Mappings
             CreateMap<TableStatus, TableStatusDto>()
                 .ReverseMap()
                 .ForMember(des => des.Tables, opt => opt.Ignore());
-
-            CreateMap<ApplicationUserDto, SaveApplicationUserDto>()
-                .ForMember(des => des.Password, opt => opt.Ignore())
-                .ForMember(des => des.ConfirmPassword, opt => opt.Ignore())
-                .ReverseMap()
-                .ForMember(des => des.Roles, opt => opt.Ignore());
         }
     }
 }

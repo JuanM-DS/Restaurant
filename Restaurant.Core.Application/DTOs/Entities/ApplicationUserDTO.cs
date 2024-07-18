@@ -16,6 +16,10 @@
 
         public DateTime CreatedTime { get; set; }
 
+        public string Password { get; set; } = null!;
+
+        public string ConfirmPassword { get; set; } = null!;
+
         //Navigators
         public ICollection<ApplicationRoleDto> Roles { get; set; } = [];
     }
