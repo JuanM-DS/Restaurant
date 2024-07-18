@@ -32,11 +32,11 @@ namespace Restaurant.Core.Application.Services
             return newEntityDto;
         }
 
-        public virtual async Task DeleteAsync(int entityDtoId)
+        public virtual async Task DeleteAsync(int entityId)
         {
-            var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
+            var tEntityById = await _genericRepository.GetByIdAsync(entityId);
             if (tEntityById is null)
-                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
+                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityId}", HttpStatusCode.NoContent);
 
             var result = await  _genericRepository.DeleteAsync(tEntityById);
             if(result)
@@ -50,23 +50,23 @@ namespace Restaurant.Core.Application.Services
             return _mapper.Map<List<TEntityDto>>(tEntities);
         }
 
-        public virtual async Task<TEntityDto?> GetByIdAsync(int entityDtoId)
+        public virtual async Task<TEntityDto?> GetByIdAsync(int entityId)
         {
-            var tEntity = await _genericRepository.GetByIdAsync(entityDtoId);
+            var tEntity = await _genericRepository.GetByIdAsync(entityId);
 
             return _mapper.Map<TEntityDto>(tEntity);
         }
 
-        public virtual async Task UpdateAsync(int entityDtoId, TEntityDto entityDto)
+        public virtual async Task UpdateAsync(int entityId, TEntityDto entityDto)
         {
-            var tEntityById = await _genericRepository.GetByIdAsync(entityDtoId);
+            var tEntityById = await _genericRepository.GetByIdAsync(entityId);
             if (tEntityById is null)
-                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityDtoId}", HttpStatusCode.NoContent);
+                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityId}", HttpStatusCode.NoContent);
 
             _mapper.Map(entityDto, tEntityById);
             var result = await _genericRepository.UpdateAsync(tEntityById);
             if (result)
-                throw new RestaurantException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
+                throw new RestaurantException($"There is a error while updating the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
     }
 }

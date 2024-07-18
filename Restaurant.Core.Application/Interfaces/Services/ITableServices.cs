@@ -7,6 +7,10 @@ namespace Restaurant.Core.Application.Interfaces.Services
     public interface ITableServices : IGeneralServices<TableDto, Table>
     {
         public List<TableDto> GetAll(TableQueryFilters filters);
+
+        public Task<List<OrderDto>> GetTableOrderInProcess(int tableId);
+
+        public Task ChangeStatus(int tableId, int tableStatusId);
     }
 }
 

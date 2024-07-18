@@ -8,13 +8,13 @@ namespace Restaurant.Core.Application.Interfaces.Services
     {
         public Task<TEntityDto> CreateAsync(TEntityDto entityDto);
 
-        public Task UpdateAsync(int entityDtoId, TEntityDto entityDto);
+        public Task UpdateAsync(int entityId, TEntityDto entityDto);
 
-        public Task DeleteAsync(int entityDtoId);
+        public Task DeleteAsync(int entityId);
 
         public List<TEntityDto> GetAll();
 
-        public Task<TEntityDto?> GetByIdAsync(int entityDtoId);
+        public Task<TEntityDto?> GetByIdAsync(int entityId);
     }
 }
 
