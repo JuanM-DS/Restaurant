@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
 using Restaurant.Core.Application.Exceptions;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Domain.Common;
+using Restaurant.Core.Domain.Settings;
 using System.Net;
 
 namespace Restaurant.Core.Application.Services
@@ -13,11 +15,13 @@ namespace Restaurant.Core.Application.Services
     {
         private readonly IGenericRepository<TEntity> _genericRepository;
         private readonly IMapper _mapper;
+        protected readonly PaginationSettings _paginationSettings;
 
-        public GenericServices(IGenericRepository<TEntity> genericRepository, IMapper mapper)
+        public GenericServices(IGenericRepository<TEntity> genericRepository, IMapper mapper, IOptions<PaginationSettings> paginationSettings)
         {
             _genericRepository = genericRepository;
             _mapper = mapper;
+            _paginationSettings = paginationSettings.Value;
         }
 
         public virtual async Task<TEntityDto> CreateAsync(TEntityDto entityDto)

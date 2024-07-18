@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
+using Restaurant.Core.Application.CustomEntities;
 using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
+using Restaurant.Core.Domain.Settings;
 
 namespace Restaurant.Core.Application.Services
 {
@@ -12,23 +15,35 @@ namespace Restaurant.Core.Application.Services
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public OrderServices(IOrderRepository orderRepository, IMapper mapper)
-            : base(orderRepository, mapper)
+        public OrderServices(IOrderRepository orderRepository, IMapper mapper, IOptions<PaginationSettings> paginationSettings)
+            : base(orderRepository, mapper, paginationSettings)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
         }
 
-        public List<OrderDto> GetAll(OrderQueryFilters filters)
+        public PagedList<OrderDto> GetAll(OrderQueryFilters filters)
         {
+            filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
+            filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
+
             var orders = _orderRepository.GetAllWithFilter(filters);
-            return _mapper.Map<List<OrderDto>>(orders);
+
+            var source = _mapper.Map<List<OrderDto>>(orders);
+
+            return PagedList<OrderDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
         }
 
-        public List<OrderDto> GetAllWithInclude(OrderQueryFilters filters)
+        public PagedList<OrderDto> GetAllWithInclude(OrderQueryFilters filters)
         {
-            var orders = _orderRepository.GetWithInclude(filters, x=>x.SelectedDishes);
-            return _mapper.Map<List<OrderDto>>(orders);
+            filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
+            filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
+
+            var orders = _orderRepository.GetWithInclude(filters);
+
+            var source = _mapper.Map<List<OrderDto>>(orders);
+
+            return PagedList<OrderDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
         }
 
         public List<OrderDto> GetAllWithInclude()

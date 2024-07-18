@@ -32,6 +32,11 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return query.AsEnumerable();
         }
 
+        public IEnumerable<Order> GetByTableId(int tableId)
+        {
+            return _entity.Where(x => x.TableId == tableId).AsEnumerable();
+        }
+
         public IEnumerable<Order> GetWithInclude(OrderQueryFilters filters, params Expression<Func<Order, object>>[] properties)
         {
             IQueryable<Order> query = _entity;

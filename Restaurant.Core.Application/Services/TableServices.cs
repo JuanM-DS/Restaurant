@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
+using Restaurant.Core.Application.CustomEntities;
 using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.Exceptions;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
+using Restaurant.Core.Domain.Settings;
 using System.Net;
 
 namespace Restaurant.Core.Application.Services
@@ -14,16 +17,24 @@ namespace Restaurant.Core.Application.Services
         private readonly ITableRepository _tableRepository;
         private readonly IMapper _mapper;
         private readonly ITableStatusRepository _tableStatusRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public TableServices(ITableRepository tableRepository, IMapper mapper, ITableStatusRepository tableStatusRepository)
-            : base(tableRepository, mapper)
+        public TableServices(
+            ITableRepository tableRepository,
+            IMapper mapper,
+            ITableStatusRepository tableStatusRepository,
+            IOptions<PaginationSettings> paginationSettings,
+            IOrderRepository orderRepository
+            )
+            : base(tableRepository, mapper, paginationSettings)
         {
             _tableRepository = tableRepository;
             _mapper = mapper;
             _tableStatusRepository = tableStatusRepository;
+            _orderRepository = orderRepository;
         }
 
-        public async Task ChangeStatus(int tableId, int tableStatusId)
+        public async Task ChangeStatusAsync(int tableId, int tableStatusId)
         {
             var tableById = await _tableRepository.GetByIdAsync(tableId);
             if (tableById is null)
@@ -48,23 +59,39 @@ namespace Restaurant.Core.Application.Services
             await base.DeleteAsync(entityDtoId);
         }
 
-        public List<TableDto> GetAll(TableQueryFilters filters)
+        public PagedList<TableDto> GetAll(TableQueryFilters filters)
         {
+            filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
+            filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
+
             var tables = _tableRepository.GetAllWithFilter(filters);
-            return _mapper.Map<List<TableDto>>(tables);
+
+            var source = _mapper.Map<List<TableDto>>(tables);
+
+            return PagedList<TableDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
         }
 
-        public async Task<List<OrderDto>> GetTableOrderInProcess(int tableId)
+        public List<OrderDto> GetTableOrderInProcess(int tableId)
         {
             const int InprogressId = 1;
 
-            var tableById = await _tableRepository.GetByIdWithIncludeAsync(tableId);
-            if (tableById is null)
-                throw new RestaurantException($"There is not any table with this Id: {tableId}", HttpStatusCode.NoContent);
-
-            var orders = tableById.Orders.Where(x=>x.StatusId == InprogressId);
+            var orders = _orderRepository.GetByTableId(tableId).Where(x => x.StatusId == InprogressId);
 
             return _mapper.Map<List<OrderDto>>(orders);
+        }
+
+        public PagedList<OrderDto> GetTableOrderInProcess(int tableId, OrderQueryFilters filters)
+        {
+            const int InprogressId = 1;
+
+            filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
+            filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
+
+            var orders = _orderRepository.GetByTableId(tableId).Where(x => x.StatusId == InprogressId);
+
+            var source =  _mapper.Map<List<OrderDto>>(orders);
+
+            return PagedList<OrderDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
         }
     }
 }

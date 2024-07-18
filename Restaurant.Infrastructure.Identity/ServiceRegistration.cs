@@ -11,7 +11,7 @@ namespace Restaurant.Infrastructure.Identity
 {
     public static class ServiceRegistration
     {
-        public static void AddServiceIdentityLayer(this IServiceCollection service, IConfiguration configuration)
+        public static void AddIdentityLayer(this IServiceCollection service, IConfiguration configuration)
         {
             #region context
             var sqlIdentityConnection = configuration.GetConnectionString("sqlIdentityConnection")

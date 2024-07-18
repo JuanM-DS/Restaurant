@@ -10,5 +10,6 @@ namespace Restaurant.Core.Application.Interfaces.Repositories
 
         public IEnumerable<Order> GetWithInclude(OrderQueryFilters filters, params Expression<Func<Order, object>>[] properties);
 
+        public IEnumerable<Order> GetByTableId(int tableId);
     }
 }

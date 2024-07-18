@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
+using Restaurant.Core.Application.CustomEntities;
 using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.Exceptions;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
+using Restaurant.Core.Domain.Settings;
 using System.Net;
 
 namespace Restaurant.Core.Application.Services
@@ -14,8 +17,8 @@ namespace Restaurant.Core.Application.Services
         private readonly IIngredientRepository _ingredientRepository;
         private readonly IMapper _mapper;
 
-        public IngredientServices(IIngredientRepository ingredientRepository, IMapper mapper)
-            : base(ingredientRepository, mapper)
+        public IngredientServices(IIngredientRepository ingredientRepository, IMapper mapper, IOptions<PaginationSettings> paginationSettings)
+            : base(ingredientRepository, mapper, paginationSettings)
         {
             _ingredientRepository = ingredientRepository;
             _mapper = mapper;
@@ -30,10 +33,16 @@ namespace Restaurant.Core.Application.Services
             return await base.CreateAsync(entityDto); 
         }
 
-        public List<IngredientDto> GetAll(IngredientQueryFilters filters)
+        public PagedList<IngredientDto> GetAll(IngredientQueryFilters filters)
         {
+            filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
+            filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
+
             var ingredients = _ingredientRepository.GetAllWithFilter(filters);
-            return _mapper.Map<List<IngredientDto>>(ingredients);
+
+            var source = _mapper.Map<List<IngredientDto>>(ingredients);
+
+            return PagedList<IngredientDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
         }
 
         public override async Task UpdateAsync(int entityDtoId, IngredientDto entityDto)

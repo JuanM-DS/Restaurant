@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
+using Restaurant.Core.Application.CustomEntities;
 using Restaurant.Core.Application.DTOs.Entities;
 using Restaurant.Core.Application.Exceptions;
 using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Application.QueryFilters;
 using Restaurant.Core.Domain.Entities;
+using Restaurant.Core.Domain.Settings;
 using System.Net;
 
 namespace Restaurant.Core.Application.Services
@@ -14,8 +17,8 @@ namespace Restaurant.Core.Application.Services
         private readonly IDishRepository _dishRepository;
         private readonly IMapper _mapper;
 
-        public DishServices(IDishRepository dishRepository, IMapper mapper)
-            : base(dishRepository, mapper)
+        public DishServices(IDishRepository dishRepository, IMapper mapper, IOptions<PaginationSettings> paginationSettings)
+            : base(dishRepository, mapper, paginationSettings)
         {
             _dishRepository = dishRepository;
             _mapper = mapper;
@@ -30,16 +33,28 @@ namespace Restaurant.Core.Application.Services
             return await base.CreateAsync(entityDto);
         }
 
-        public List<DishDto> GetAll(DishQueryFilters filters)
+        public PagedList<DishDto> GetAll(DishQueryFilters filters)
         {
+            filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
+            filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
+
             var dishes = _dishRepository.GetAllWithFilter(filters);
-            return _mapper.Map<List<DishDto>>(dishes);
+
+            var source = _mapper.Map<List<DishDto>>(dishes);
+
+            return PagedList<DishDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
         }
 
-        public List<DishDto> GetAllWithInclude(DishQueryFilters filters)
+        public PagedList<DishDto> GetAllWithInclude(DishQueryFilters filters)
         {
-            var dishes = _dishRepository.GetWithInclude(filters, x=>x.Ingredients);
-            return _mapper.Map<List<DishDto>>(dishes);
+            filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
+            filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
+
+            var dishes = _dishRepository.GetWithInclude(filters);
+
+            var source = _mapper.Map<List<DishDto>>(dishes);
+
+            return PagedList<DishDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
         }
 
         public List<DishDto> GetAllWithInclude()

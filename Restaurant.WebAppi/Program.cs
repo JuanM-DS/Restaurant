@@ -2,7 +2,7 @@ using Middleware.Filters;
 using Restaurant.Infrastructure.Identity;
 using Restaurant.Infrastructure.Persistence;
 using Restaurant.Infrastructure.Shared;
-
+using Restaurant.Core.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 #region dependency injection
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddPersistenceLayer(builder.Configuration);
-builder.Services.AddServiceIdentityLayer(builder.Configuration);
+builder.Services.AddIdentityLayer(builder.Configuration);
 builder.Services.AddSharedLayer(builder.Configuration);
+builder.Services.AddApplicatinLayer(builder.Configuration);
 builder.Services.AddControllers(option => option.Filters.Add<GlobalException>());
 #endregion
 
