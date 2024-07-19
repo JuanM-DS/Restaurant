@@ -10,7 +10,13 @@ namespace Restaurant.Infrastructure.Identity.Mappings
         {
             #region user
             CreateMap<ApplicationUser, ApplicationUserDto>()
-                .ReverseMap();
+                .ForMember(des => des.Password, opt => opt.Ignore())
+                .ReverseMap()
+                .ForMember(des => des.Roles, opt => opt.Ignore());
+
+            CreateMap<SaveApplicationUserDto, ApplicationUserDto>()
+               .ForMember(des => des.Roles, opt => opt.Ignore())
+               .ReverseMap();
             #endregion
 
             #region role

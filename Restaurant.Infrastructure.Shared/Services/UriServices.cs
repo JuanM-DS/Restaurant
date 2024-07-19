@@ -17,7 +17,7 @@ namespace Restaurant.Infrastructure.Shared.Services
             var route = "/User/ResetPassword";
 
             var uri = new Uri(string.Concat(_origin, route));
-            var finalUrl = QueryHelpers.AddQueryString(uri.ToString(), "Token", token);
+            var finalUrl = QueryHelpers.AddQueryString(uri.ToString(), "JWToken", token);
             finalUrl = QueryHelpers.AddQueryString(finalUrl, "UserId", userId);
 
             return finalUrl;

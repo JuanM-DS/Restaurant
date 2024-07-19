@@ -13,7 +13,7 @@ namespace Restaurant.Infrastructure.Identity.Seeds
                 UserName = "SuperAdmin",
                 FirstName = "Jane",
                 LastName = "Doe",
-                Email = "waiter@email.com",
+                Email = "superAdmin@email.com",
                 EmailConfirmed = true,
                 CreatedBy = "System",
                 CreatedTime = DateTime.Now,
@@ -29,7 +29,7 @@ namespace Restaurant.Infrastructure.Identity.Seeds
             if (superAdminByEmail is not null)
                 return;
 
-            var result = await userManager.CreateAsync(superAdmin);
+            var result = await userManager.CreateAsync(superAdmin, "123Pa$$word!");
             if (!result.Succeeded)
                 return;
 

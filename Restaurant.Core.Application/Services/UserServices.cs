@@ -100,8 +100,7 @@ namespace Restaurant.Core.Application.Services
             if (tEntityByEmail is null)
                 throw new RestaurantException($"There is not any user with this Email: {entityDto.Email}", HttpStatusCode.NoContent);
 
-            _mapper.Map(entityDto, tEntityById);
-            var result = await _userRepository.UpdateAsync(entityId, tEntityById);
+            var result = await _userRepository.UpdateAsync(entityId, entityDto);
             if (result)
                 throw new RestaurantException($"There is a error while updating the user", HttpStatusCode.BadRequest);
         }

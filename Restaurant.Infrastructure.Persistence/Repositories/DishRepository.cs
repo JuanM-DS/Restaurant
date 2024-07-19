@@ -37,6 +37,40 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
             return await _entity.FirstOrDefaultAsync(x => x.Name == name);
         }
 
+        public override async Task<bool> UpdateAsync(Dish entity)
+        {
+            var ingredientIds = entity.Ingredients.Select(ei => ei.Id).ToList();
+
+            var existingIngredients = await _context.Ingredients
+                                                     .Where(i => ingredientIds.Contains(i.Id))
+                                                     .ToListAsync();
+
+            if (existingIngredients.Count != ingredientIds.Count)
+            {
+                return false;
+            }
+            
+            entity.Ingredients = existingIngredients;
+
+            return await base.UpdateAsync(entity);
+        }
+
+        public override async Task<bool> CreateAsync(Dish entity)
+        {
+            var existingIngredients = _context.Ingredients
+                 .Where(c => entity.Ingredients.Select(ei => ei.Id).Contains(c.Id))
+                 .ToList();
+
+            if (existingIngredients.Count != entity.Ingredients.Count)
+            {
+                return false;
+            }
+
+            entity.Ingredients = existingIngredients;
+
+            return await base.CreateAsync(entity);
+        }
+
         public IEnumerable<Dish> GetWithInclude(DishQueryFilters filters, params Expression<Func<Dish, object>>[] properties)
         {
             IQueryable<Dish> query = _entity;

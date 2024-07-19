@@ -2,9 +2,8 @@
 {
     public class DishCategoryDto
     {
-        public string Name { get; set; } = null!;
+        public int Id { get; set; }
 
-        //Navigators
-        public ICollection<DishDto> Dishes { get; set; } = [];
+        public string Name { get; set; } = null!;
     }
 }

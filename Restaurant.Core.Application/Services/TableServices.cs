@@ -45,8 +45,9 @@ namespace Restaurant.Core.Application.Services
                 throw new RestaurantException($"There is not any table status with this Id: {tableStatusId}", HttpStatusCode.NoContent);
             
             tableById.Status = tableStatusById;
+            tableById.StatusId = tableStatusId;
             var result = await _tableRepository.UpdateAsync(tableById);
-            if (result)
+            if (!result)
                 throw new RestaurantException($"There is a error while updating the table", HttpStatusCode.BadRequest);
         }
 
@@ -92,6 +93,13 @@ namespace Restaurant.Core.Application.Services
             var source =  _mapper.Map<List<OrderDto>>(orders);
 
             return PagedList<OrderDto>.Create(source, filters.Page.Value, filters.PageSize.Value);
+        }
+
+        public override Task<TableDto> CreateAsync(TableDto entityDto)
+        {
+            const int Available = 1;
+            entityDto.StatusId = Available;
+            return base.CreateAsync(entityDto);
         }
     }
 }

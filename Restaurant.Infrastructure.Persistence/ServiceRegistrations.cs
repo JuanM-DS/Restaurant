@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurant.Core.Application.Interfaces.Repositories;
 using Restaurant.Infrastructure.Persistence.Context;
+using Restaurant.Infrastructure.Persistence.Repositories;
 
 namespace Restaurant.Infrastructure.Persistence
 {
@@ -16,6 +18,16 @@ namespace Restaurant.Infrastructure.Persistence
             service.AddDbContext<RestaurantDbContext>(provider =>
                 provider.UseSqlServer(configuration.GetConnectionString("sqlConnection"), m => m.MigrationsAssembly(typeof(RestaurantDbContext).Assembly.FullName))
             );
+            #endregion
+
+            #region Repositories
+            service.AddTransient<IDishRepository, DishRepository>();
+            service.AddTransient<IDishCategoryRepository, DishCategoryRepository>();
+            service.AddTransient<IIngredientRepository, IngredientRepository>();
+            service.AddTransient<IOrderRepository, OrderRepository>();
+            service.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
+            service.AddTransient<ITableRepository, TableRepository>();
+            service.AddTransient<ITableStatusRepository, TableStatusRepository>();
             #endregion
         }
     }

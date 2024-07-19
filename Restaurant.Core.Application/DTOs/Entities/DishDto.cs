@@ -1,9 +1,9 @@
-﻿using Restaurant.Core.Domain.Entities;
-
-namespace Restaurant.Core.Application.DTOs.Entities
+﻿namespace Restaurant.Core.Application.DTOs.Entities
 {
     public class DishDto
     {
+        public int Id { get; set; }
+
         public string Name { get; set; } = null!;
 
         public decimal Price { get; set; }
