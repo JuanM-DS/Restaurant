@@ -24,7 +24,6 @@ namespace Restaurant.Core.Application.Mappings
             CreateMap<Order, OrderDto>()
                 .ReverseMap()
                 .ForMember(des => des.Table, opt => opt.Ignore())
-                .ForMember(des => des.SelectedDishes, opt => opt.Ignore())
                 .ForMember(des => des.Status, opt => opt.Ignore());
 
             CreateMap<OrderStatus, OrderStatusDto>()

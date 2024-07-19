@@ -57,5 +57,14 @@ namespace Restaurant.Core.Application.Services
             var orders = await _orderRepository.GetByIdWithIncludeAsync(id ,x => x.SelectedDishes);
             return _mapper.Map<OrderDto>(orders);
         }
+
+        public override Task<OrderDto> CreateAsync(OrderDto entityDto)
+        {
+            const int InprogressId = 1;
+
+            entityDto.StatusId = InprogressId;
+
+            return base.CreateAsync(entityDto);
+        }
     }
 }

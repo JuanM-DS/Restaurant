@@ -40,10 +40,10 @@ namespace Restaurant.Core.Application.Services
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityId);
             if (tEntityById is null)
-                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityId}", HttpStatusCode.NoContent);
+                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityId}", HttpStatusCode.BadRequest);
 
             var result = await  _genericRepository.DeleteAsync(tEntityById);
-            if(result)
+            if(!result)
                 throw new RestaurantException($"There is a error while deleting the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
 
@@ -65,11 +65,11 @@ namespace Restaurant.Core.Application.Services
         {
             var tEntityById = await _genericRepository.GetByIdAsync(entityId);
             if (tEntityById is null)
-                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityId}", HttpStatusCode.NoContent);
+                throw new RestaurantException($"There is not any {typeof(TEntity).Name} with this Id: {entityId}", HttpStatusCode.BadRequest);
 
             _mapper.Map(entityDto, tEntityById);
             var result = await _genericRepository.UpdateAsync(tEntityById);
-            if (result)
+            if (!result)
                 throw new RestaurantException($"There is a error while updating the {typeof(TEntity).Name}", HttpStatusCode.BadRequest);
         }
     }

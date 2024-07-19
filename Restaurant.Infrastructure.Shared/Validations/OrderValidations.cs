@@ -10,10 +10,6 @@ namespace Restaurant.Infrastructure.Shared.Validations
             RuleFor(x => x.Subtotal)
                 .GreaterThanOrEqualTo(0);
 
-            RuleFor(x => x.UserId)
-                .NotNull()
-                .NotEmpty();
-
             RuleFor(x => x.TableId)
                 .GreaterThan(0);
 

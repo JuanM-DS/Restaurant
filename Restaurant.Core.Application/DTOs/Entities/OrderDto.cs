@@ -4,6 +4,8 @@ namespace Restaurant.Core.Application.DTOs.Entities
 {
     public class OrderDto
     {
+        public int Id { get; set; }
+
         public decimal Subtotal { get; set; }
 
         public string? UserId { get; set; }
@@ -12,6 +14,6 @@ namespace Restaurant.Core.Application.DTOs.Entities
 
         public int StatusId { get; set; }
 
-        public List<Dish> SelectedDishes { get; set; } = [];
+        public List<DishDto> SelectedDishes { get; set; } = [];
     }
 }

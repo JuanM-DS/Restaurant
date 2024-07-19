@@ -60,5 +60,41 @@ namespace Restaurant.Infrastructure.Persistence.Repositories
 
             return query.AsEnumerable();
         }
+
+        public override async Task<bool> CreateAsync(Order entity)
+        {
+            var dishIds = entity.SelectedDishes.Select(ei => ei.Id).ToList();
+
+            var existingDish = await _context.Dishes
+                                                     .Where(i => dishIds.Contains(i.Id))
+                                                     .ToListAsync();
+
+            if (existingDish.Count != dishIds.Count)
+            {
+                return false;
+            }
+
+            entity.SelectedDishes = existingDish;
+
+            return await base.CreateAsync(entity);
+        }
+
+        public override async Task<bool> UpdateAsync(Order entity)
+        {
+            var dishIds = entity.SelectedDishes.Select(ei => ei.Id).ToList();
+
+            var existingDish = await _context.Dishes
+                                                     .Where(i => dishIds.Contains(i.Id))
+                                                     .ToListAsync();
+
+            if (existingDish.Count != dishIds.Count)
+            {
+                return false;
+            }
+
+            entity.SelectedDishes = existingDish;
+
+            return await base.UpdateAsync(entity);
+        }
     }
 }

@@ -1,10 +1,10 @@
 using Middleware.Filters;
+using Newtonsoft.Json;
+using Restaurant.Core.Application;
 using Restaurant.Infrastructure.Identity;
 using Restaurant.Infrastructure.Persistence;
 using Restaurant.Infrastructure.Shared;
-using Restaurant.Core.Application;
-using Newtonsoft.Json;
-using Microsoft.OpenApi.Models;
+using Restaurant.WebAppi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,44 +21,18 @@ builder.Services.AddControllers()
     .AddNewtonsoftJson(option =>
     {
         option.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+        option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
+builder.Services.AddSwaggerGen();
+builder.Services.AddHealthChecks();
+builder.Services.AddSwaggerExtension();
+builder.Services.AddApiVersioningExtension();
+builder.Services.AddDistributedMemoryCache();
 #endregion
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
-
-#region Swagger
-
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        Description = "Input your Bearer token in this format "
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                },
-                Scheme = "Bearer",
-                Name = "Bearer",
-                In = ParameterLocation.Header
-            }, new List<string>()
-        },
-    });
-});
-#endregion
-
 
 var app = builder.Build();
 await app.RunSeedsAsync();
@@ -71,8 +45,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSwaggerExtension();
+app.UseHealthChecks("/health");
 
 app.MapControllers();
 

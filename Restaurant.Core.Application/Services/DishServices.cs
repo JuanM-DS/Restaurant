@@ -50,7 +50,7 @@ namespace Restaurant.Core.Application.Services
             filters.Page = (filters.Page is null) ? _paginationSettings.DefaultPage : filters.Page;
             filters.PageSize = (filters.PageSize is null) ? _paginationSettings.DefaultPageSize : filters.Page;
 
-            var dishes = _dishRepository.GetWithInclude(filters);
+            var dishes = _dishRepository.GetWithInclude(filters, x=>x.Ingredients);
 
             var source = _mapper.Map<List<DishDto>>(dishes);
 

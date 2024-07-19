@@ -124,8 +124,7 @@ namespace Restaurant.Infrastructure.Identity.Services
             var user = _mapper.Map<ApplicationUser>(request);
 
             user.EmailConfirmed = true;
-
-            var result = await _userManager.CreateAsync(user);
+            var result = await _userManager.CreateAsync(user, request.Password);
             if (!result.Succeeded)
                 return new()
                 {

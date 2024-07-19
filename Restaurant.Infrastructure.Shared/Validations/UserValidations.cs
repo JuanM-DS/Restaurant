@@ -3,7 +3,7 @@ using Restaurant.Core.Application.DTOs.Entities;
 
 namespace Restaurant.Infrastructure.Shared.Validations
 {
-    public  class UserValidations : AbstractValidator<ApplicationUserDto>
+    public  class UserValidations : AbstractValidator<SaveApplicationUserDto>
     {
         public UserValidations()
         {

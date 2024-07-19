@@ -9,11 +9,13 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Restaurant.Core.Application.CustomEntities;
 using Restaurant.Core.Application.Interfaces.Repositories;
+using Restaurant.Core.Application.Interfaces.Services;
 using Restaurant.Core.Domain.Settings;
 using Restaurant.Infrastructure.Identity.Context;
 using Restaurant.Infrastructure.Identity.Entities;
 using Restaurant.Infrastructure.Identity.Repositories;
 using Restaurant.Infrastructure.Identity.Seeds;
+using Restaurant.Infrastructure.Identity.Services;
 using System.Text;
 
 namespace Restaurant.Infrastructure.Identity
@@ -43,6 +45,10 @@ namespace Restaurant.Infrastructure.Identity
 
             #region repositories
             service.AddTransient<IUserRepository, UserRepository>();
+            #endregion
+
+            #region services
+            service.AddTransient<IAccountServices, AccountServices>();
             #endregion
 
             #region Jwt configuration
@@ -104,9 +110,9 @@ namespace Restaurant.Infrastructure.Identity
             var userManager = service.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = service.GetRequiredService<RoleManager<ApplicationRole>>();
 
+            await DefaultRoles.CreateSeed(roleManager);
             await DefaultAdmin.CreateSeed(userManager);
             await DefaultSuperAdmin.CreateSeed(userManager);
-            await DefaultRoles.CreateSeed(roleManager);
         }
     }
 }
